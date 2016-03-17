@@ -11,7 +11,7 @@ from google.appengine.api import users
 class MainHandler(webapp2.RequestHandler):
   def get(self):
     # Set your GCS Bucket Name here, or it will use your default bucket.
-    # Visit https://console.cloud.google.com/appengine/settings?project=<your_app_id>
+    # Visit https://console.cloud.google.com/appengine/settings
     # to create a Default Cloud Storage Bucket, if you don't have one.
     gs_bucket_name = app_identity.get_default_gcs_bucket_name()
     upload_url = blobstore.create_upload_url('/upload',
@@ -19,7 +19,7 @@ class MainHandler(webapp2.RequestHandler):
 
     self.response.write('<html>\n<body>\n<h1>GAE Upload to GCS Sample</h1>\n')
     self.response.write('<h2>Upload File to GCS (bucket name: %s):</h2>\n'
-        % bucket_name)
+        % gs_bucket_name)
     self.response.write('<form action="%s" method="POST" '
         'enctype="multipart/form-data">\n' % upload_url)
     self.response.write('<input type="file" name="file"><br>\n')
